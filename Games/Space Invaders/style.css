@@ -1,5 +1,6 @@
 canvas {
     display: block;
     margin: 0 auto;
+    background-image: linear-gradient(rgb(101, 28, 104));
     background-color: rgb(89, 45, 103);
 }
