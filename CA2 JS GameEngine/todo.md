@@ -1,0 +1,4 @@
+- Make 2/3 classes
+- Extend Classes
+- Make/Modify GameObjects and Modify Game Class
+- Make Game
