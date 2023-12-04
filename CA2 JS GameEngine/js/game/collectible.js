@@ -1,6 +1,6 @@
-import GameObject from "../GameEngine/js/gameobject.js";
-import Renderer from "../GameEngine/js/renderer.js";
-import Physics from "../GameEngine/js/physics.js";
+import GameObject from "../engine/gameobject.js";
+import Renderer from "../engine/renderer.js";
+import Physics from "../engine/physics.js";
 
 class Collectible extends GameObject {
     //Polymorphism, changing color in gameobject to be gold

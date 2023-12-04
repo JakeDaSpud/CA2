@@ -1,6 +1,6 @@
 import GameObject from '../engine/gameobject.js';
 import UI from '../engine/ui.js';
-import Player from 'player.js';
+import Player from './player.js';
 
 // The PlayerUI class extends GameObject.
 class PlayerUI extends GameObject {

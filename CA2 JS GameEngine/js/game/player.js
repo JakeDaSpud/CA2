@@ -1,21 +1,21 @@
-import GameObject from "../GameEngine/gameobject.js";
-import Renderer from "../GameEngine/renderer.js";
-import Physics from "../GameEngine/physics.js";
-import Input from "../GameEngine/input.js";
-import{Images} from "../GameEngine/resources.js";
-import Platform from "platforms.js";
-import Collectible from "collectible.js";
-import Enemy from "enemy.js";
-import ParticleSystem from "../GameEngine/particleSystem.js";
+import GameObject from "../engine/gameobject.js";
+import Renderer from "../engine/renderer.js";
+import Physics from "../engine/physics.js";
+import Input from "../engine/input.js";
+import{Images} from "../engine/resources.js";
+import Platform from "./platform.js";
+import Collectible from "./collectible.js";
+import Enemy from "./enemy.js";
+import ParticleSystem from "../engine/particleSystem.js";
 
-class Player extends GameObject{
+class Player extends GameObject {
 
     constructor(x,y){
         super(x,y);
         this.random = new Renderer("blue", 50, 50, Images.player);
-        this.addCompnent(this.renderer);
-        this.addCompnent(new Physics({x:0, y:0}, {x:0, y:0}));
-        this.addCompnent(new Input());
+        this.addComponent(this.renderer);
+        this.addComponent(new Physics({x:0, y:0}, {x:0, y:0}));
+        this.addComponent(new Input());
 
         //check if this is still required
         this.direction =1;
