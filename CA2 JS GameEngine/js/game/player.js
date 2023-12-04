@@ -5,7 +5,7 @@ import Input from "../GameEngine/input.js";
 import{Images} from "../GameEngine/resources.js";
 import Platform from "platforms.js";
 import Collectible from "collectible.js";
-//import Enemy from "enemy.js";
+import Enemy from "enemy.js";
 import ParticleSystem from "../GameEngine/particleSystem.js";
 
 class Player extends GameObject{

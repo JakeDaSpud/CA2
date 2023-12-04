@@ -1,4 +1,4 @@
-import Component from "./component";
+import Component from "component.js";
 
 class Renderer extends Component {
     constructor(color = "white", width = 50, height = 50, image = null) {

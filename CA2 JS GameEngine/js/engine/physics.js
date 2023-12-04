@@ -1,5 +1,5 @@
-import Component from "./component";
-import Renderer from "./renderer";
+import Component from "./component.js";
+import Renderer from "./renderer.js";
 
 class Physics extends Component {
     constructor(velocity = {x:0, y:0}, acceleration = {x:0, y:0}, gravity = {x:0, y:300}) {
