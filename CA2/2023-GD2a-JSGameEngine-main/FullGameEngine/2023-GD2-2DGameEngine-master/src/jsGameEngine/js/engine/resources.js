@@ -8,9 +8,10 @@ const Images = {
 
 // Create an AudioFiles object to hold the file paths of the audio resources.
 const Sounds = {
-  playerJumpSound: './resources/playerJumpSound.wav', // The file path of the jump sound.
-  playerCollectSound: './resources/sounds/playerCollectSound.wav', // The file path of the collect sound.
-  playerDamageSound: './resources/sounds/playerDamageSound.wav', // The file path of the damage sound.
+  //I used to have these be defined as the file paths, which wouldn't play
+  playerJumpSound:  new Audio(), // The file path of the jump sound.
+  playerCollectSound: new Audio(), // The file path of the collect sound.
+  playerDamageSound: new Audio(), // The file path of the damage sound.
 };
 
 
@@ -27,21 +28,21 @@ Images.playerRun.src = './resources/images/player/jel_Run.png'; // Update the im
 Images.playerFall.src = './resources/images/player/jel_Fall.png'; // Update the image path
 
 // Set the source of the enemy image.
-Images.enemy.src = './resources/images/enemy/enemy.png'; // Update the image path
+Images.enemy.src = './resources/images/enemy/enemy_Run.png'; // Update the image path
 
 
 
 //Setting Audio Sound sources
 
 //Set the source of the player jump sound.
-Sounds.playerJumpSound = './resources/sounds/playerJumpSound.wav'; // Update the sound path
+Sounds.playerJumpSound.src = './resources/sounds/playerJumpSound.wav'; // Update the sound path
 
 //Set the source of the player collect sound.
-Sounds.playerCollectSound = './resources/sounds/playerCollectSound.wav'; // Update the sound path
+Sounds.playerCollectSound.src = './resources/sounds/playerCollectSound.wav'; // Update the sound path
 
 //Set the source of the player damage sound.
-Sounds.playerDamageSound = './resources/sounds/playerDamageSound.wav'; // Update the sound path
+Sounds.playerDamageSound.src = './resources/sounds/playerDamageSound.wav'; // Update the sound path
 
 
 // Export the Images and AudioFiles objects so they can be imported and used in other modules.
-export { Images, AudioFiles };
+export { Images, Sounds };

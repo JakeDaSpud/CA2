@@ -4,20 +4,27 @@ import Renderer from '../engine/renderer.js';
 import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
+import { Sounds } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Collectible from './collectible.js';
 import ParticleSystem from '../engine/particleSystem.js';
+import AudioManager from '../engine/audioManager.js';
 
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
   // Constructor initializes the game object and add necessary components
   constructor(x, y) {
     super(x, y); // Call parent's constructor
-    this.renderer = new Renderer('blue', 50, 50, Images.playerIdle); // Add renderer
+    this.renderer = new Renderer('green', 50, 50, Images.playerIdle); // Add renderer
     this.addComponent(this.renderer);
+
     this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 })); // Add physics
+
     this.addComponent(new Input()); // Add input for handling user input
+
+    this.audioManager = new AudioManager(); // Add audio manager for handling / playing audio
+
     // Initialize all the player specific properties
     this.direction = 1;
     this.lives = 3;
@@ -52,7 +59,12 @@ class Player extends GameObject {
 
     // Handle player jumping
     if (!this.isGamepadJump && input.isKeyDown('ArrowUp') && this.isOnPlatform) {
+      
       this.startJump();
+      console.log('Jump action performed.');
+
+      this.audioManager.playJumpSound(); // Play jump sound
+      console.log('Jump sound played.');
     }
 
     if (this.isJumping) {
@@ -167,6 +179,9 @@ class Player extends GameObject {
     if (!this.isInvulnerable) {
       this.lives--;
       this.isInvulnerable = true;
+
+      this.audioManager.playDamageSound(); // Play damage sound
+
       // Make player vulnerable again after 2 seconds
       setTimeout(() => {
         this.isInvulnerable = false;
@@ -178,6 +193,9 @@ class Player extends GameObject {
     // Handle collectible pickup
     this.score += collectible.value;
     console.log(`Score: ${this.score}`);
+
+    this.audioManager.playCollectSound(); // Play collect sound
+
     this.emitCollectParticles(collectible);
   }
 
