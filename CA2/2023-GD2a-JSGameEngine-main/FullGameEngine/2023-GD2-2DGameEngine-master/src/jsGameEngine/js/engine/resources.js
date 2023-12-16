@@ -36,7 +36,7 @@ Images.jelFall2.src = './resources/images/player/jel_Fall2.png'; // Update the i
 Images.enemyRun.src = './resources/images/enemy/enemy_Run.png'; // Update the image path
 
 // Set the source of the trash image.
-//Images.trash.src = './resources/images/collectibles/trash.png'; // Update the image path
+Images.trash.src = './resources/images/assets/trash.png'; // Update the image path
 
 
 

@@ -4,8 +4,6 @@ import Renderer from '../engine/renderer.js';
 import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
-import { Sounds } from '../engine/resources.js';
-import { Animations } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Collectible from './collectible.js';
@@ -19,7 +17,7 @@ class Player extends GameObject {
   constructor(x, y) {
     super(x, y); // Call parent's constructor
     this.renderer = new Renderer('green', 50, 50, Images.jelIdle); // Add renderer
-    //this.addComponent(this.renderer);
+    this.addComponent(this.renderer);
 
     this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 })); // Add physics
 
@@ -27,7 +25,9 @@ class Player extends GameObject {
 
     this.audioManager = new AudioManager(); // Add audio manager for handling / playing audio
 
-    this.animator = new Animator(this); // Add animator for handling animations
+    this.animator = new Animator(this.renderer); // Add animator for handling animations
+
+    
 
     // Initialize all the player specific properties
     this.direction = 1;
@@ -77,6 +77,12 @@ class Player extends GameObject {
 
     if (this.isJumping) {
       this.updateJump(deltaTime);
+    }
+
+    // Falling animation if vertical velocity is negative
+    if (!this.isOnPlatform && physics.velocity.y > 0)
+    {
+      this.animator.jelFallingAnimation;
     }
 
     // Handle collisions with collectibles

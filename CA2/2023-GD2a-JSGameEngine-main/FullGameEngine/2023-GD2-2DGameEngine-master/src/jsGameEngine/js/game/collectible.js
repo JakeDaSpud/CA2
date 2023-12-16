@@ -7,6 +7,8 @@ import Renderer from '../engine/renderer.js';
 // Import the Physics class from the 'engine' directory
 import Physics from '../engine/physics.js';
 
+import { Images } from '../engine/resources.js';
+
 // Define a new class, Collectible, which extends (i.e., inherits from) GameObject
 class Collectible extends GameObject {
   
@@ -14,14 +16,14 @@ class Collectible extends GameObject {
   // - x and y coordinates
   // - width and height of the collectible
   // - color of the collectible, which defaults to 'gold' if not specified
-  constructor(x, y, width, height, color = 'gold') {
+  constructor(x, y, width, height, color = 'gold', image = Images.jelFall2) {
     
     // Call the constructor of the superclass (GameObject) with the x and y coordinates
     super(x, y);
 
     // Add a new Renderer component to this collectible. The renderer is responsible for drawing the collectible.
     // It uses the provided color, width, and height.
-    this.addComponent(new Renderer(color, width, height));
+    this.addComponent(new Renderer(color, width, height, image));
 
     // Add a new Physics component to this collectible. The physics component is responsible for handling the physics
     // (like movement, collision detection, etc.). In this case, the collectible doesn't move,

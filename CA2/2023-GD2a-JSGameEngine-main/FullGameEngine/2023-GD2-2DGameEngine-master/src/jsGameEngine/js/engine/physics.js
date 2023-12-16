@@ -14,7 +14,7 @@ class Physics extends Component {
 
   // The update method handles how the component's state changes over time.
   update(deltaTime) {
-    console.log("Physics update method called on ", this)
+    //console.log("Physics update method called on ", this)
     // Update velocity based on acceleration and gravity.
     this.velocity.x += this.acceleration.x * deltaTime;
     this.velocity.y += (this.acceleration.y + this.gravity.y) * deltaTime;
@@ -29,6 +29,12 @@ class Physics extends Component {
     const [left, right, top, bottom] = this.getBoundingBox();
     const [otherLeft, otherRight, otherTop, otherBottom] = otherPhysics.getBoundingBox();
 
+    //Had an error to do with colliding too when there was no bounding box, so I added this
+    /*if (!leftA || !leftB) {
+      // One of the objects doesn't have a bounding box, so they can't be colliding
+      return false;
+    }*/
+
     // Check if the bounding boxes overlap. If they do, return true. If not, return false.
     return left < otherRight && right > otherLeft && top < otherBottom && bottom > otherTop;
   }
@@ -37,6 +43,13 @@ class Physics extends Component {
   getBoundingBox() {
     // Get the Renderer component of the game object to get its width and height.
     const renderer = this.gameObject.getComponent(Renderer);
+
+    //Copilot said this would fix my problem with my animator, as it would try to get the bounding box of my player's animator which doesn't have a width or height
+    /*if (!renderer) {
+      // This component doesn't have a Renderer, so it doesn't have a bounding box
+      return null;
+    }*/
+
     // Calculate the left, right, top, and bottom edges of the bounding box.
     const left = this.gameObject.x;
     const right = this.gameObject.x + renderer.width;
