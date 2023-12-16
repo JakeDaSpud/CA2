@@ -9,14 +9,20 @@ class Input extends Component {
     super();
     // An object to store the state of each key. The keys are the keyboard key codes, and the values are boolean indicating whether the key is down.
     this.keys = {};
+    this.keysUp = {}; //Copilot added this object to store the state of each key when it is released
     // The index of the gamepad that this input component is listening to.
     this.gamepadIndex = null;
 
     // Add event listeners for the keydown and keyup events.
     // When a keydown event is fired, the corresponding key in the keys object is set to true.
-    // When a keyup event is fired, the corresponding key in the keys object is set to false.
     document.addEventListener('keydown', (event) => (this.keys[event.code] = true));
-    document.addEventListener('keyup', (event) => (this.keys[event.code] = false));
+    
+    // When a keyup event is fired, the corresponding key in the keys object is set to false.
+    //Copilot remade this listener for the isKeyUp function
+    document.addEventListener('keyup', (event) => {
+      this.keys[event.code] = false;
+      this.keysUp[event.code] = true; // Add the key to the keysUp object
+  });
 
     // Add event listeners for the gamepadconnected and gamepaddisconnected events.
     // When a gamepadconnected event is fired, the gamepadIndex property is set to the index of the connected gamepad.
@@ -35,6 +41,14 @@ class Input extends Component {
   isKeyDown(key) {
     // If the key is in the keys object and its value is true, return true. Otherwise, return false.
     return this.keys[key] || false;
+  }
+
+  //I said "this code fires every frame that b is pressed, but i want it to fire when b is released"
+  //Copilot made this whole function
+  isKeyUp(key) {
+    const isKeyUp = this.keysUp[key];
+    delete this.keysUp[key]; // Remove the key from the keysUp object
+    return isKeyUp;
   }
 
   // This method returns the current state of the gamepad this input component is listening to, or null if there is no such gamepad.

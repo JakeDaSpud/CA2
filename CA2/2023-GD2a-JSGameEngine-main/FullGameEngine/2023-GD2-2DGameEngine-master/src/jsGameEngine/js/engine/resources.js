@@ -58,8 +58,8 @@ Sounds.playerDamageSound.volume = 0.4; // Sound is too loud!
 
 const Animations = {
   // Arrays of images for the player animations.
-  playerRunAnim: [Images.playerRun, Images.playerIdle],
-  playerFallAnim: [Images.playerFall, Images.playerFall2],
+  jelRunAnim: [Images.jelRun, Images.jelIdle],
+  jelFallAnim: [Images.jelFall, Images.jelFall2],
 }
 
 

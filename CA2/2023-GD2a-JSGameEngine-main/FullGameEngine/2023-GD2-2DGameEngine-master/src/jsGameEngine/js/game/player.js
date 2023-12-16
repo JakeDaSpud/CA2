@@ -41,6 +41,7 @@ class Player extends GameObject {
     this.isInvulnerable = false;
     this.isGamepadMovement = false;
     this.isGamepadJump = false;
+    this.debugMode = false;
   }
 
   // The update function runs every frame and contains game logic
@@ -49,14 +50,29 @@ class Player extends GameObject {
     const input = this.getComponent(Input); // Get input component
 
     this.handleGamepadInput(input);
+
+    // Falling animation if vertical velocity is over 5 (going downwards)
+    if (!this.isOnPlatform && Math.floor(physics.velocity.y) > 6)
+    {
+      this.animator.jelFallingAnimation(this);
+    }
+
+    if (this.isOnPlatform) {
+      this.animator.jelIdleAnimation(this);
+    }
     
-    // Handle player movement
-    if (!this.isGamepadMovement && input.isKeyDown('ArrowRight')) {
+    //Handle debug flip input
+    if (!this.isGamepadMovement && input.isKeyUp('KeyB')) {
+      this.toggleDebug();
+    } 
+
+    // Handle player movement)
+    if (!this.isGamepadMovement && (input.isKeyDown('ArrowRight') || input.isKeyDown('KeyD'))) {
       this.moveRight();
       this.direction = -1;
     } 
     
-    else if (!this.isGamepadMovement && input.isKeyDown('ArrowLeft')) {
+    else if (!this.isGamepadMovement && (input.isKeyDown('ArrowLeft') || input.isKeyDown('KeyA'))) {
       this.moveLeft();
       this.direction = 1;
     } 
@@ -66,7 +82,7 @@ class Player extends GameObject {
     }
 
     // Handle player jumping
-    if (!this.isGamepadJump && input.isKeyDown('ArrowUp') && this.isOnPlatform) {
+    if (!this.isGamepadJump && (input.isKeyDown('ArrowUp') || input.isKeyDown('KeyW')) && this.isOnPlatform) {
       
       this.startJump();
       console.log('Jump action performed.');
@@ -77,12 +93,6 @@ class Player extends GameObject {
 
     if (this.isJumping) {
       this.updateJump(deltaTime);
-    }
-
-    // Falling animation if vertical velocity is negative
-    if (!this.isOnPlatform && physics.velocity.y > 0)
-    {
-      this.animator.jelFallingAnimation;
     }
 
     // Handle collisions with collectibles
@@ -108,6 +118,10 @@ class Player extends GameObject {
     for (const platform of platforms) {
       if (physics.isColliding(platform.getComponent(Physics))) {
         if (!this.isJumping) {
+          if (physics.velocity.y < 6)
+          {
+            this.animator.jelIdleAnimation;
+          }
           physics.velocity.y = 0;
           physics.acceleration.y = 0;
           this.y = platform.y - this.renderer.height;
@@ -169,6 +183,10 @@ class Player extends GameObject {
       if (input.isGamepadButtonDown(0) && this.isOnPlatform) {
         this.isGamepadJump = true;
         this.startJump();
+      }
+
+      if (input.isGamepadButtonDown(5)) {
+        this.toggleDebug();
       }
     }
   }
@@ -244,16 +262,36 @@ class Player extends GameObject {
   // Functions to move, the gamepad and keyboard input was doing different amounts of movement before I made these functions
   moveLeft() {
     // Move the player left
-    this.animator.jelRunningAnimation();
+    if (Math.floor(this.getComponent(Physics).velocity.y) > 6) {
+      this.animator.jelFallingAnimation(this);
+    }
+
+    else {
+      this.animator.jelRunningAnimation();
+    }
+
     this.getComponent(Physics).velocity.x = -700;
     this.direction = 1;
   }
 
   moveRight() {
     // Move the player right
-    this.animator.jelRunningAnimation();
+    if (Math.floor(this.getComponent(Physics).velocity.y) > 6) {
+      this.animator.jelFallingAnimation(this);
+    }
+
+    else {
+      this.animator.jelRunningAnimation();
+    }
+
     this.getComponent(Physics).velocity.x = 700;
     this.direction = -1;
+  }
+
+  // Flips debugMode boolean read by playerUI to show and hide the debug menu, when B on the keyboard, or right bumper on the gamepad is pressed
+  toggleDebug() {
+    this.debugMode = !this.debugMode;
+    console.log("Debug mode is now "+this.debugMode);
   }
 }
 

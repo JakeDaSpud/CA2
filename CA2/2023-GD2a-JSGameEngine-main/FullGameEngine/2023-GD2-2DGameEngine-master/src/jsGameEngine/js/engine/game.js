@@ -13,10 +13,21 @@ class Game {
     this.gameObjects = [];
     // An array to hold game objects that are marked to be removed from the game.
     this.gameObjectsToRemove = [];
+
+    //Frame rate and Frames
+
+    //Set frame rate
+    this.frameRate = 60;
+
+    //calculate the time to wait until the next frame.
+    this.frameTime = 1 / this.frameRate;
+
     // The time at which the last frame was rendered.
     this.lastFrameTime = 0;
+
     // The amount of time that passed between the last frame and the current frame.
     this.deltaTime = 0;
+
     // Adjust the size of the canvas to match the window size.
     this.resizeCanvas();
     // Add an event listener to resize the canvas whenever the window size changes.
@@ -44,14 +55,20 @@ class Game {
     // Update the last frame time.
     this.lastFrameTime = currentFrameTime;
 
+    //Time counting down to next frame.
+    this.timeUntilFrameDone = Math.max(this.frameTime - this.deltaTime, 0) * 1000;
+
     // Update all game objects and the camera.
     this.update();
     this.camera.update();
     // Draw the game objects on the canvas.
     this.draw();
 
+    //Copilot told me how to actually make the frame wait its time before it loads the next one
     // Request the next animation frame, which will call this method again.
-    requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
+    setTimeout(() => {
+      requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
+    }, this.timeUntilFrameDone);
   }
 
   // This method updates all the game objects.

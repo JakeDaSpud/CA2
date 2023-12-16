@@ -1,7 +1,9 @@
 import Component from './component.js';
-import Renderer from './renderer.js';
 import { Animations } from './resources.js';
 import { Images } from './resources.js';
+import Player from '../game/player.js';
+import Physics from './physics.js';
+import Enemy from '../game/enemy.js';
 
 class Animator extends Component{
     
@@ -14,9 +16,17 @@ class Animator extends Component{
         this.images = Images;
     }
 
-    jelIdleAnimation(){
-        this.entityRenderer.image = this.images.jelIdle;
-        console.log('jel idle "animation".');
+    //Copilot: Asked it if WaitForSeconds(0.2) is a real function, it gave me it but it wasn't in JS 🙄 so it made me this waiting function
+    //An async function tries to run the code in a Promise() while letting other code go first, but the "await" means that it won't let other code go first until it is finished
+    async WaitForSeconds(waitingTimeInSeconds){
+        /*await*/ return new Promise(resolve => setTimeout(resolve, waitingTimeInSeconds / 1000))
+    }
+
+    jelIdleAnimation(playerLink){
+        if(playerLink.isOnPlatform && Math.floor(playerLink.getComponent(Physics).velocity.x) == 0){
+            this.entityRenderer.image = this.images.jelIdle;
+            console.log('jel idle "animation".');
+        }
     }
 
     jelRunningAnimation(){
@@ -24,30 +34,28 @@ class Animator extends Component{
         console.log("jel running animation.");
     }
 
-    jelFallingAnimation(){
-        while(true){
-            this.entityRenderer.image = this.anims.jelFallAnim[0];
-            console.log("jel falling animation 1.");
+    async jelFallingAnimation(playerLink){
+        this.playerLink = playerLink;
 
-            WaitForSeconds(0.2);
-            console.log("waited 0.2 seconds.");
+        while(!playerLink.isOnPlatform && Math.floor(playerLink.getComponent(Physics).velocity.y) > 6){
+            const timeBetweenFrames = 0.5;
+
+            this.entityRenderer.image = this.anims.jelFallAnim[0];
+            //console.log("jel falling animation 1.");
+
+            await this.WaitForSeconds(timeBetweenFrames);
+            //console.log(`waited ${timeBetweenFrames} seconds.`);
             
             this.entityRenderer.image = this.anims.jelFallAnim[1];
-            console.log("jel falling animation 1.");
+            //console.log("jel falling animation 2.");
 
-            WaitForSeconds(0.2);
-            console.log("waited 0.2 seconds.");
+            await this.WaitForSeconds(timeBetweenFrames);
+            //console.log(`waited ${timeBetweenFrames} seconds.`);
         }
     }
 
     enemyRunningAnimation(){
         this.entityRenderer.image = this.images.enemyRun;
-    }
-
-    //Copilot: Asked it if WaitForSeconds(0.2) is a real function, it gave me it but it wasn't in JS 🙄 so it made me this waiting function
-    //An async function tries to run the code in a Promise() while letting other code go first, but the "await" means that it won't let other code go first until it is finished
-    async WaitForSeconds(waitingTimeInSeconds){
-        await new Promise(resolve => setTimeout(resolve, waitingTimeInSeconds / 1000))
     }
 
 }
