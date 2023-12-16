@@ -5,19 +5,21 @@ import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
 import { Images } from '../engine/resources.js';
 import { Sounds } from '../engine/resources.js';
+import { Animations } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Collectible from './collectible.js';
 import ParticleSystem from '../engine/particleSystem.js';
 import AudioManager from '../engine/audioManager.js';
+import Animator from '../engine/animator.js';
 
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
   // Constructor initializes the game object and add necessary components
   constructor(x, y) {
     super(x, y); // Call parent's constructor
-    this.renderer = new Renderer('green', 50, 50, Images.playerIdle); // Add renderer
-    this.addComponent(this.renderer);
+    this.renderer = new Renderer('green', 50, 50, Images.jelIdle); // Add renderer
+    //this.addComponent(this.renderer);
 
     this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 })); // Add physics
 
@@ -25,14 +27,16 @@ class Player extends GameObject {
 
     this.audioManager = new AudioManager(); // Add audio manager for handling / playing audio
 
+    this.animator = new Animator(this); // Add animator for handling animations
+
     // Initialize all the player specific properties
     this.direction = 1;
     this.lives = 3;
     this.score = 0;
     this.isOnPlatform = false;
     this.isJumping = false;
-    this.jumpForce = 400;
-    this.jumpTime = 0.3;
+    this.jumpForce = 300;
+    this.jumpTime = 5;
     this.jumpTimer = 0;
     this.isInvulnerable = false;
     this.isGamepadMovement = false;
@@ -48,12 +52,16 @@ class Player extends GameObject {
     
     // Handle player movement
     if (!this.isGamepadMovement && input.isKeyDown('ArrowRight')) {
-      physics.velocity.x = 250;
+      this.moveRight();
       this.direction = -1;
-    } else if (!this.isGamepadMovement && input.isKeyDown('ArrowLeft')) {
-      physics.velocity.x = -250;
+    } 
+    
+    else if (!this.isGamepadMovement && input.isKeyDown('ArrowLeft')) {
+      this.moveLeft();
       this.direction = 1;
-    } else if (!this.isGamepadMovement) {
+    } 
+    
+    else if (!this.isGamepadMovement) {
       physics.velocity.x = 0;
     }
 
@@ -131,18 +139,21 @@ class Player extends GameObject {
 
       // Handle movement
       const horizontalAxis = gamepad.axes[0];
+
       // Move right
       if (horizontalAxis > 0.1) {
         this.isGamepadMovement = true;
-        physics.velocity.x = 100;
+        this.moveRight();
         this.direction = -1;
       } 
+
       // Move left
       else if (horizontalAxis < -0.1) {
         this.isGamepadMovement = true;
-        physics.velocity.x = -100;
+        this.moveLeft();
         this.direction = 1;
       } 
+
       // Stop
       else {
         physics.velocity.x = 0;
@@ -222,6 +233,21 @@ class Player extends GameObject {
     this.lives = 3;
     this.score = 0;
     this.resetPlayerState();
+  }
+
+  // Functions to move, the gamepad and keyboard input was doing different amounts of movement before I made these functions
+  moveLeft() {
+    // Move the player left
+    this.animator.jelRunningAnimation();
+    this.getComponent(Physics).velocity.x = -700;
+    this.direction = 1;
+  }
+
+  moveRight() {
+    // Move the player right
+    this.animator.jelRunningAnimation();
+    this.getComponent(Physics).velocity.x = 700;
+    this.direction = -1;
   }
 }
 

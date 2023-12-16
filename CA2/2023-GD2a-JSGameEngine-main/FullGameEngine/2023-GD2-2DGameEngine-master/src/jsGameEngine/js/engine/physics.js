@@ -14,6 +14,7 @@ class Physics extends Component {
 
   // The update method handles how the component's state changes over time.
   update(deltaTime) {
+    console.log("Physics update method called on ", this)
     // Update velocity based on acceleration and gravity.
     this.velocity.x += this.acceleration.x * deltaTime;
     this.velocity.y += (this.acceleration.y + this.gravity.y) * deltaTime;
