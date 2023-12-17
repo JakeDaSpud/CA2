@@ -55,7 +55,7 @@ class Level extends Game {
       this.addGameObject(new Enemy(50, 50, 50));
       this.addGameObject(new Enemy(100, 50, 50));
       this.addGameObject(new Enemy(150, 50, 500));
-      this.addGameObject(new JumpingEnemy(50, 50, 100));
+      this.addGameObject(new JumpingEnemy(50, 50, 0, -100));
   
       // Create collectibles and add them to the game
       this.addGameObject(new Collectible(250, this.canvas.height - 100, 60, 60, Colours.White, Images.trash));
@@ -83,6 +83,10 @@ class Level extends Game {
   
       // Create collectibles and add them to the game
       this.addGameObject(new Collectible(250, this.canvas.height - 100, 60, 60, Colours.White, Images.trash));
+    }
+
+    else if (this.levelID == 3) {
+      location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
   }
   

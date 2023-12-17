@@ -8,8 +8,8 @@ import Platform from './platform.js';
 import Animator from '../engine/animator.js';
 
 class JumpingEnemy extends Enemy {
-    constructor(x, y, movementLimit) {
-        super(x, y, movementLimit);
+    constructor(x, y, movementLimit, jumpForce) {
+        super(x, y);
 
         this.renderer = this.getComponent(Renderer);
         this.renderer.image = Images.jumpingEnemyRun;
@@ -18,11 +18,17 @@ class JumpingEnemy extends Enemy {
 
         // Get the Physics component of this enemy
         this.physics = this.getComponent(Physics);
+        this.physics.velocity.x = 0;
+        this.physics.acceleration.x = 0;
 
         this.movementDistance = 0;
-        this.movementLimit = movementLimit;
+        this.movementLimit = 0;
         this.movingRight = true;
         this.isOnPlatform = false;
+        this.jumpForce = jumpForce;
+        this.isJumping = false;
+        this.jumpTime = 5;
+        this.jumpTimer = 0;
     }
 
     // Define an update method that will run every frame of the game. It takes deltaTime as an argument
@@ -48,7 +54,9 @@ class JumpingEnemy extends Enemy {
             }
         }
 
+        // Initiate a jump if the enemy is on a platform
         if (this.isOnPlatform) {
+            this.startJump();
             this.animator.jumpingEnemyRunningAnimation(this.renderer);
         } 
         
@@ -56,8 +64,28 @@ class JumpingEnemy extends Enemy {
             this.animator.jumpingEnemyFallingAnimation(this.renderer);
         }
 
+        if (this.isJumping) {
+            this.updateJump(deltaTime);
+        }
+
         // Call the update method of the superclass (GameObject), passing along deltaTime
         super.update(deltaTime);
+    }
+
+    startJump() {
+        // Initiate a jump if the player is on a platform
+        this.isJumping = true;
+        this.jumpTimer = this.jumpTime;
+        this.physics.velocity.y = -this.jumpForce;
+        //this.isOnPlatform = false;
+    }
+      
+    updateJump(deltaTime) {
+        // Updates the jump progress over time
+        this.jumpTimer -= deltaTime;
+        if (this.jumpTimer <= 0 || this.physics.velocity.y > 0) {
+            this.isJumping = false;
+        }
     }
 }
 

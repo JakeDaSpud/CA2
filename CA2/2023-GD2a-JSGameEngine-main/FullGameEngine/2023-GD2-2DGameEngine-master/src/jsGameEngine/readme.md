@@ -30,7 +30,7 @@ gamepad:\
 ---
 ### references
 
-colour palette used: <a href = "https://lospec.com/palette-list/sobeachy8">sobeachy8 on lospec</a> (colour don't display on github)
+colour palette used: <a href = "https://lospec.com/palette-list/sobeachy8">sobeachy8 on lospec</a> (colours don't display on github)
 - <span style="background-color:#e55388;color:white;font-weight:bold;padding:0px 2px 3px 2px; border-radius:5px">red #e55388</span>
 
 - <span style="background-color:#e57d88;color:white;font-weight:bold;padding:0px 2px 3px 2px; border-radius:5px">lighter red #e57d88</span>
