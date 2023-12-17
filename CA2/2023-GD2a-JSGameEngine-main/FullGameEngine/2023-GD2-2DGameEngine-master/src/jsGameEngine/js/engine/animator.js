@@ -60,6 +60,14 @@ class Animator extends Component{
         this.entityRenderer.image = this.images.enemyRun;
     }
 
+    jumpingEnemyRunningAnimation(){
+        this.entityRenderer.image = this.images.jumpingEnemyRun;
+    }
+
+    jumpingEnemyFallingAnimation(){
+        this.entityRenderer.image = this.images.jumpingEnemyFall;
+    }
+
 }
 
 export default Animator;

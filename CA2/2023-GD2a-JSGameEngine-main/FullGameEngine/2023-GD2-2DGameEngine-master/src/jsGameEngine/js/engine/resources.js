@@ -5,6 +5,8 @@ const Images = {
   jelFall: new Image(), // The Image instance for the player.
   jelFall2: new Image(), // The Image instance for the player.
   enemyRun: new Image(), // The Image instance for the enemy.
+  jumpingEnemyRun: new Image(), // The Image instance for the enemy.
+  jumpingEnemyFall: new Image(), // The Image instance for the enemy.
   trash: new Image(), // The Image instance for the trash.
 };
 
@@ -48,6 +50,12 @@ Images.jelFall2.src = './resources/images/player/jel_Fall2.png'; // Update the i
 // Set the source of the enemy image.
 Images.enemyRun.src = './resources/images/enemy/enemy_Run.png'; // Update the image path
 
+// Set the source of the jumping enemy image.
+Images.jumpingEnemyRun.src = './resources/images/enemy/jumpingEnemy_Run.png'; // Update the image path
+
+// Set the source of the jumping enemy falling image.
+Images.jumpingEnemyFall.src = './resources/images/enemy/jumpingEnemy_Fall.png'; // Update the image path
+
 // Set the source of the trash image.
 Images.trash.src = './resources/images/assets/trash.png'; // Update the image path
 
@@ -79,7 +87,7 @@ const Animations = {
   jelFallAnim: {
     one: Images.jelFall, 
     two: Images.jelFall2
-  },
+  }
 }
 
 

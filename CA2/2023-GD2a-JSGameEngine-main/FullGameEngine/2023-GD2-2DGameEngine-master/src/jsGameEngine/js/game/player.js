@@ -141,7 +141,8 @@ class Player extends GameObject {
   
     // Check if player has fallen off the bottom of the screen
     if (this.y > this.game.canvas.height) {
-      this.resetPlayerState();
+      //this.resetPlayerState(); I have decided that if you fall off the screen, you restart the whole level, not get teleported back up
+      location.reload();
     }
 
     // Check if player has no lives left
@@ -249,7 +250,7 @@ class Player extends GameObject {
 
   emitCollectParticles() {
     // Create a particle system at the player's position when a collectible is collected
-    const particleSystem = new ParticleSystem(this.x, this.y, 'yellow', 20, 1, 0.5);
+    const particleSystem = new ParticleSystem(this.x, this.y, Colours.Cyan, 20, 1, 0.5);
     this.game.addGameObject(particleSystem);
   }
 

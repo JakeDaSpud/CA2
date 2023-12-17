@@ -24,6 +24,7 @@ class Physics extends Component {
   }
 
   // The isColliding method checks if this game object is colliding with another game object.
+  //Copilot's new isColliding to prevent the player from teleporting to the top of a platform whenever the player touches it at all
   isColliding(otherPhysics) {
     // Get the bounding boxes of both game objects.
     const [left, right, top, bottom] = this.getBoundingBox();

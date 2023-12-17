@@ -1,10 +1,12 @@
 # jel's junk jump
 ### 🗑️the trash javascript platformer🚮
 
-avoid enemies through interesting vertical levels while picking up all of the trash!
+avoid enemies across interesting vertical levels while picking up all of the trash!
 
-inspired by *Donkey Kong* (NES) **level design**\
+inspired by *Donkey Kong* and *Bubble Bobble* (NES) **level design**\
 and *Yoshi's Island* (SNES) **aesthetics**
+
+**youtube presentation:** <a href = "">video link</a>
 
 ---
 

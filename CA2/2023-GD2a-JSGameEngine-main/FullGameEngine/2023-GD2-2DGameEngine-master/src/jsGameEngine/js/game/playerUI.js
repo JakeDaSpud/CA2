@@ -3,6 +3,7 @@ import UI from '../engine/ui.js';
 import Player from './player.js';
 import Physics from '../engine/physics.js';
 import Renderer from '../engine/renderer.js';
+import { Sounds } from '../engine/resources.js';
 
 // The PlayerUI class extends GameObject.
 class PlayerUI extends GameObject {
@@ -11,14 +12,16 @@ class PlayerUI extends GameObject {
 
     // Create a new UI component with initial text and add it to this object's components.
     this.uiComponent = new UI('Lives: 3 Score: 0', x, y);
-    this.debugHintUI = new UI('[B / Right Bumper]', x, y + 20, '20px Consolas', 'rgba(255, 255, 255, 0.5)', 'left', 'top');
+    this.debugHintUI = new UI('[B / Right Bumper]', x, y + 40, '40px Consolas', 'rgba(255, 255, 255, 0.5)', 'left', 'top');
 
     //Copilot gave me this handy line of code to position the debug UI component
-    this.debugUIComponent = new UI('', x, y + 20);
-    this.debugUIComponent2 = new UI('', x, y + 40);
-    this.debugUIComponent3 = new UI('', x, y + 60);
-    this.debugUIComponent4 = new UI('', x, y + 80);
-    this.debugUIComponent5 = new UI('', x, y + 100);
+    this.debugUIComponent = new UI('', x, y + 40);
+    this.debugUIComponent2 = new UI('', x, y + 80);
+    this.debugUIComponent3 = new UI('', x, y + 120);
+    this.debugUIComponent4 = new UI('', x, y + 160);
+    this.debugUIComponent5 = new UI('', x, y + 200);
+    this.debugUIComponent6 = new UI('', x, y + 240);
+    this.debugUIComponent7 = new UI('', x, y + 280);
 
     this.addComponent(this.uiComponent);
 
@@ -27,6 +30,8 @@ class PlayerUI extends GameObject {
     this.addComponent(this.debugUIComponent3);
     this.addComponent(this.debugUIComponent4);
     this.addComponent(this.debugUIComponent5);
+    this.addComponent(this.debugUIComponent6);
+    this.addComponent(this.debugUIComponent7);
     
     this.addComponent(this.debugHintUI);
     this.debugMode = false;
@@ -47,7 +52,9 @@ class PlayerUI extends GameObject {
       this.debugUIComponent2.setText(`[DEBUG] Acceleration: X: ${playerPhysics.acceleration.x} Y: ${playerPhysics.acceleration.y}`);
       this.debugUIComponent3.setText(`[DEBUG] Gravity: X: ${playerPhysics.gravity.x} Y: ${playerPhysics.gravity.y}`);
       this.debugUIComponent4.setText(`[DEBUG] isOnPlatform: ${player.isOnPlatform}`);
-      this.debugUIComponent4.setText(`[DEBUG] Animation: ${playerRenderer.image.src.substring(playerRenderer.image.src.lastIndexOf('/') + 1)}`); //Copilot gave me the elements needed to format the png name out of this src path
+      this.debugUIComponent5.setText(`[DEBUG] Animation: ${playerRenderer.image.src.substring(playerRenderer.image.src.lastIndexOf('/') + 1)}`); //Copilot gave me the elements needed to format the png name out of this src path
+      this.debugUIComponent6.setText(`[DEBUG] isOnPlatform: ${player.isOnPlatform}`);
+      this.debugUIComponent7.setText(`[DEBUG] musicMuted: ${Sounds.mainTheme.muted}`);
     }
 
     else {
@@ -58,6 +65,9 @@ class PlayerUI extends GameObject {
       this.debugUIComponent2.setText(``);
       this.debugUIComponent3.setText(``);
       this.debugUIComponent4.setText(``);
+      this.debugUIComponent5.setText(``);
+      this.debugUIComponent6.setText(``);
+      this.debugUIComponent7.setText(``);
     }
   }
 }
