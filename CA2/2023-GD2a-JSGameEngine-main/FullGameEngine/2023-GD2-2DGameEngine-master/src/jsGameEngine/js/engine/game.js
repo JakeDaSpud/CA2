@@ -1,5 +1,7 @@
 // This class depends on the Camera, which is a separate module and needs to be imported.
 import Camera from './camera.js';
+import { Sounds } from './resources.js';
+import AudioManager from './audioManager.js';
 
 // The Game class is responsible for setting up and managing the main game loop.
 class Game {
@@ -9,6 +11,9 @@ class Game {
     this.canvas = document.getElementById(canvasId);
     // The 2D rendering context for the canvas, which is used for drawing.
     this.ctx = this.canvas.getContext('2d');
+
+    this.audioManager = new AudioManager();
+
     // An array to hold all the game objects that are currently in the game.
     this.gameObjects = [];
     // An array to hold game objects that are marked to be removed from the game.
@@ -45,6 +50,12 @@ class Game {
   // This method starts the game loop.
   start() {
     this.isRunning = true;
+    console.log("Game Started");
+
+    Sounds.mainTheme.loop = true;
+    Sounds.mainTheme.play();
+    console.log("Music Started");
+    
     requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
   }
 

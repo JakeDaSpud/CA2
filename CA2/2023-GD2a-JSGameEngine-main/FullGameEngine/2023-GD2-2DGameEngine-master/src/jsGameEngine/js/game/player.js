@@ -3,7 +3,8 @@ import GameObject from '../engine/gameobject.js';
 import Renderer from '../engine/renderer.js';
 import Physics from '../engine/physics.js';
 import Input from '../engine/input.js';
-import { Images } from '../engine/resources.js';
+import { Images, Sounds } from '../engine/resources.js';
+import { Colours } from '../engine/resources.js';
 import Enemy from './enemy.js';
 import Platform from './platform.js';
 import Collectible from './collectible.js';
@@ -16,7 +17,7 @@ class Player extends GameObject {
   // Constructor initializes the game object and add necessary components
   constructor(x, y) {
     super(x, y); // Call parent's constructor
-    this.renderer = new Renderer('green', 50, 50, Images.jelIdle); // Add renderer
+    this.renderer = new Renderer(Colours.Gley, 50, 50, Images.jelIdle); // Add renderer
     this.addComponent(this.renderer);
 
     this.addComponent(new Physics({ x: 0, y: 0 }, { x: 0, y: 0 })); // Add physics
@@ -42,6 +43,7 @@ class Player extends GameObject {
     this.isGamepadMovement = false;
     this.isGamepadJump = false;
     this.debugMode = false;
+    this.muteMusic = false;
   }
 
   // The update function runs every frame and contains game logic
@@ -52,7 +54,7 @@ class Player extends GameObject {
     this.handleGamepadInput(input);
 
     // Falling animation if vertical velocity is over 5 (going downwards)
-    if (!this.isOnPlatform && Math.floor(physics.velocity.y) > 6)
+    if (!this.isOnPlatform && Math.floor(physics.velocity.y) > 5)
     {
       this.animator.jelFallingAnimation(this);
     }
@@ -64,6 +66,11 @@ class Player extends GameObject {
     //Handle debug flip input
     if (!this.isGamepadMovement && input.isKeyUp('KeyB')) {
       this.toggleDebug();
+    } 
+
+    //Handle music flip input
+    if (!this.isGamepadMovement && input.isKeyUp('KeyM')) {
+      this.toggleMusic();
     } 
 
     // Handle player movement)
@@ -82,7 +89,7 @@ class Player extends GameObject {
     }
 
     // Handle player jumping
-    if (!this.isGamepadJump && (input.isKeyDown('ArrowUp') || input.isKeyDown('KeyW')) && this.isOnPlatform) {
+    if (!this.isGamepadJump && (input.isKeyDown('ArrowUp') || input.isKeyDown('KeyW') || input.isKeyDown('Space')) && this.isOnPlatform) {
       
       this.startJump();
       console.log('Jump action performed.');
@@ -118,6 +125,8 @@ class Player extends GameObject {
     for (const platform of platforms) {
       if (physics.isColliding(platform.getComponent(Physics))) {
         if (!this.isJumping) {
+          //DO NOT CHANGE THE SIGN OR SIX, THIS MAKES SENSE
+          //Checking if y velocity is standing (for some reason it's 5 instead of 0 normally)
           if (physics.velocity.y < 6)
           {
             this.animator.jelIdleAnimation;
@@ -188,6 +197,10 @@ class Player extends GameObject {
       if (input.isGamepadButtonDown(5)) {
         this.toggleDebug();
       }
+
+      if (input.isGamepadButtonDown(4)) {
+        this.toggleMusic();
+      }
     }
   }
 
@@ -257,12 +270,13 @@ class Player extends GameObject {
     this.lives = 3;
     this.score = 0;
     this.resetPlayerState();
+    Sounds.mainTheme.reload();
   }
 
   // Functions to move, the gamepad and keyboard input was doing different amounts of movement before I made these functions
   moveLeft() {
     // Move the player left
-    if (Math.floor(this.getComponent(Physics).velocity.y) > 6) {
+    if (Math.floor(this.getComponent(Physics).velocity.y) > 5) {
       this.animator.jelFallingAnimation(this);
     }
 
@@ -276,7 +290,7 @@ class Player extends GameObject {
 
   moveRight() {
     // Move the player right
-    if (Math.floor(this.getComponent(Physics).velocity.y) > 6) {
+    if (Math.floor(this.getComponent(Physics).velocity.y) > 5) {
       this.animator.jelFallingAnimation(this);
     }
 
@@ -292,6 +306,12 @@ class Player extends GameObject {
   toggleDebug() {
     this.debugMode = !this.debugMode;
     console.log("Debug mode is now "+this.debugMode);
+  }
+
+  // Flips muteMusic boolean read by playerUI to mute and unmute the music, when M on the keyboard, or left bumper on the gamepad is pressed
+  toggleMusic() {
+    Sounds.mainTheme.muted = !Sounds.mainTheme.muted;
+    console.log("Mute music is now " + Sounds.mainTheme.muted);
   }
 }
 

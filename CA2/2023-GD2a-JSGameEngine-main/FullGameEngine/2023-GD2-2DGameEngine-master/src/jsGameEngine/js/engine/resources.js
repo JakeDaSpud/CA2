@@ -14,7 +14,20 @@ const Sounds = {
   playerJumpSound:  new Audio(), // The file path of the jump sound.
   playerCollectSound: new Audio(), // The file path of the collect sound.
   playerDamageSound: new Audio(), // The file path of the damage sound.
+  mainTheme: new Audio(), // The file path of the main music theme.
 };
+
+// Create a Colours object to hold the colour palette for sobeachy8.
+const Colours = {
+  Red: "#e55388",
+  Lighter_Red: "#e57d88",
+  Orange: "#e59f88",
+  Yellow: "#e5d988",
+  White: "#e3d5cc",
+  Gley: "#bad5cc",
+  Cyan: "#6dd5cc",
+  Blue: "#5ac5cc"
+}
 
 
 
@@ -54,14 +67,21 @@ Sounds.playerCollectSound.volume = 0.1; // Sound is too loud!
 Sounds.playerDamageSound.src = './resources/sounds/playerDamageSound.wav'; // Update the sound path
 Sounds.playerDamageSound.volume = 0.4; // Sound is too loud!
 
+Sounds.mainTheme.src = './resources/sounds/jels_junk_jump_ThemeCut.mp3'; // Update the sound path
+Sounds.mainTheme.volume = 0.3; // Sound is too loud
+Sounds.mainTheme.repeat = true; // Loop the music
+
 
 
 const Animations = {
   // Arrays of images for the player animations.
   jelRunAnim: [Images.jelRun, Images.jelIdle],
-  jelFallAnim: [Images.jelFall, Images.jelFall2],
+  jelFallAnim: {
+    one: Images.jelFall, 
+    two: Images.jelFall2
+  },
 }
 
 
 // Export the Images and AudioFiles objects so they can be imported and used in other modules.
-export { Images, Sounds, Animations };
+export { Images, Sounds, Colours, Animations };

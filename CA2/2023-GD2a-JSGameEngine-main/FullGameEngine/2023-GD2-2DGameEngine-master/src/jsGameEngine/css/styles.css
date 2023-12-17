@@ -5,7 +5,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #e8d17b; /* Yellow background color */
+    /*background-color: #e8d17b; /* Yellow background color */
+    background-image: url('../resources/images/assets/background_Image.png');
+    /*resources\images\assets\background_Image.png*/
+    
 }
 
 /* Add border to the canvas element */

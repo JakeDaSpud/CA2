@@ -36,22 +36,24 @@ class Animator extends Component{
 
     async jelFallingAnimation(playerLink){
         this.playerLink = playerLink;
+        
+        do {
+            const timeBetweenFrames = 3;
 
-        while(!playerLink.isOnPlatform && Math.floor(playerLink.getComponent(Physics).velocity.y) > 6){
-            const timeBetweenFrames = 0.5;
-
-            this.entityRenderer.image = this.anims.jelFallAnim[0];
-            //console.log("jel falling animation 1.");
+            this.entityRenderer.image = this.anims.jelFallAnim.one;
+            console.log("jel falling animation 1.");
 
             await this.WaitForSeconds(timeBetweenFrames);
-            //console.log(`waited ${timeBetweenFrames} seconds.`);
+            console.log(`waited ${timeBetweenFrames} seconds.`);
             
-            this.entityRenderer.image = this.anims.jelFallAnim[1];
-            //console.log("jel falling animation 2.");
+            this.entityRenderer.image = this.anims.jelFallAnim.two;
+            console.log("jel falling animation 2.");
 
             await this.WaitForSeconds(timeBetweenFrames);
-            //console.log(`waited ${timeBetweenFrames} seconds.`);
+            console.log(`waited ${timeBetweenFrames} seconds.`);
         }
+
+        while(!playerLink.isOnPlatform && Math.floor(playerLink.getComponent(Physics).velocity.y) > 6)
     }
 
     enemyRunningAnimation(){
