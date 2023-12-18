@@ -6,7 +6,7 @@ avoid enemies across interesting vertical levels while picking up all of the tra
 inspired by *Donkey Kong* and *Bubble Bobble* (NES) **level design**\
 and *Yoshi's Island* (SNES) **aesthetics**
 
-**youtube presentation:** <a href = "">video link</a>
+**youtube presentation:** <a href = "https://youtu.be/rARNhKiAE8Y">video link</a>
 
 ---
 
