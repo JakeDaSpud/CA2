@@ -7,8 +7,10 @@ import { Sounds } from '../engine/resources.js';
 
 // The PlayerUI class extends GameObject.
 class PlayerUI extends GameObject {
-  constructor(x, y) {
+  constructor(x, y, level) {
     super(x, y); // Call the constructor of the GameObject class.
+
+    this.level = level;
 
     // Create a new UI component with initial text and add it to this object's components.
     this.uiComponent = new UI('Lives: 3 Score: 0', x, y);
@@ -46,7 +48,7 @@ class PlayerUI extends GameObject {
 
     //
     if (player.debugMode) {
-      this.uiComponent.setText(`Lives: ${player.lives} Score: ${player.score} Level: ${this.game.levelID}`);
+      this.uiComponent.setText(`Lives: ${player.lives} Trash: ${player.score} / 10 Level: [1-1] preschool platforming`);
       this.debugHintUI.setText('');
       this.debugUIComponent.setText(`[DEBUG] Velocity: X: ${playerPhysics.velocity.x} Y: ${Math.round(playerPhysics.velocity.y)}`);
       this.debugUIComponent2.setText(`[DEBUG] Acceleration: X: ${playerPhysics.acceleration.x} Y: ${playerPhysics.acceleration.y}`);
@@ -59,7 +61,7 @@ class PlayerUI extends GameObject {
 
     else {
       // Update the text of the UI component to reflect the player's current lives and score.
-      this.uiComponent.setText(`Lives: ${player.lives} Score: ${player.score} Level: ${this.game.levelID}`);
+      this.uiComponent.setText(`Lives: ${player.lives} Trash: ${player.score} / 10 Level: [1-1] preschool platforming`); /*Old template literal i was trying to use when i was doing multiple levels and a dynamic level system ${this.levelsData['Level' + this.level.currentLevel].worldID}*/
       this.debugHintUI.setText(`[B / Right Bumper]`);
       this.debugUIComponent.setText(``);
       this.debugUIComponent2.setText(``);

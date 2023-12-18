@@ -15,7 +15,7 @@ import Animator from '../engine/animator.js';
 // Defining a class Player that extends GameObject
 class Player extends GameObject {
   // Constructor initializes the game object and add necessary components
-  constructor(x, y) {
+  constructor(x, y, level) {
     super(x, y); // Call parent's constructor
     this.renderer = new Renderer(Colours.Gley, 50, 50, Images.jelIdle); // Add renderer
     this.addComponent(this.renderer);
@@ -28,7 +28,7 @@ class Player extends GameObject {
 
     this.animator = new Animator(this.renderer); // Add animator for handling animations
 
-    
+    this.level = level; // Add level for handling level data
 
     // Initialize all the player specific properties
     this.direction = 1;
@@ -151,9 +151,13 @@ class Player extends GameObject {
     }
 
     // Check if player has collected all collectibles
-    if (this.score >= 3) {
-      console.log('You win!');
-      location.reload();
+    if (this.level.currentLevel == 1) {
+      if (this.score >= 10) {
+        console.log('Beat Level 1!');
+        this.level.currentLevel = 2;
+        console.log(`Level is now: ${this.level.currentLevel}`);
+        location.href = "winScreen.html";
+      }
     }
 
     super.update(deltaTime);

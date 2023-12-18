@@ -49,6 +49,7 @@ colour palette used: <a href = "https://lospec.com/palette-list/sobeachy8">sobea
 
 
 github copilot was used mostly for commenting code and in these logics:
-- huh
--
--
+- **animator.js:** waiting function
+- **game.js:** waiting function
+- **input.js:** event listener / on key released functionality
+- **playerUI.js:** text positioning and substring functionality

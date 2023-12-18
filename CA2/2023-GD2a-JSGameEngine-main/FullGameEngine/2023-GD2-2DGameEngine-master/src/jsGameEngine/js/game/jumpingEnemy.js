@@ -27,8 +27,8 @@ class JumpingEnemy extends Enemy {
         this.isOnPlatform = false;
         this.jumpForce = jumpForce;
         this.isJumping = false;
-        this.jumpTime = 5;
-        this.jumpTimer = 0;
+        this.jumpTime = 105;
+        this.jumpTimer = 10;
     }
 
     // Define an update method that will run every frame of the game. It takes deltaTime as an argument
@@ -48,7 +48,7 @@ class JumpingEnemy extends Enemy {
             if (this.physics.isColliding(platform.getComponent(Physics))) {
                 // If it is, stop its vertical movement and position it on top of the platform
                 this.physics.velocity.y = 0;
-                this.physics.acceleration.y = 0;
+                this.physics.acceleration.y = -50;
                 this.y = platform.y - this.getComponent(Renderer).height;
                 this.isOnPlatform = true;
             }
@@ -58,7 +58,7 @@ class JumpingEnemy extends Enemy {
         if (this.isOnPlatform) {
             this.startJump();
             this.animator.jumpingEnemyRunningAnimation(this.renderer);
-        } 
+        }
         
         else if (!this.isOnPlatform) {
             this.animator.jumpingEnemyFallingAnimation(this.renderer);

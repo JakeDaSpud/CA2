@@ -41,16 +41,16 @@ class Animator extends Component{
             const timeBetweenFrames = 3;
 
             this.entityRenderer.image = this.anims.jelFallAnim.one;
-            console.log("jel falling animation 1.");
+            //console.log("jel falling animation 1.");
 
             await this.WaitForSeconds(timeBetweenFrames);
-            console.log(`waited ${timeBetweenFrames} seconds.`);
+            //console.log(`waited ${timeBetweenFrames} seconds.`);
             
             this.entityRenderer.image = this.anims.jelFallAnim.two;
-            console.log("jel falling animation 2.");
+            //console.log("jel falling animation 2.");
 
             await this.WaitForSeconds(timeBetweenFrames);
-            console.log(`waited ${timeBetweenFrames} seconds.`);
+            //console.log(`waited ${timeBetweenFrames} seconds.`);
         }
 
         while(!playerLink.isOnPlatform && Math.floor(playerLink.getComponent(Physics).velocity.y) > 6)
